@@ -30,26 +30,35 @@ def get_current_price(currency: str):
 
 
 sample_wallet_data = {"id": 1,
+                      "owner": "John",
                       "BTC_amount": 0.003,
                       "ETH_amount": 0.4,
                       "PLN_amount": 500,
                       "history_transaction": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
 empty_wallet_data = {"id": 1,
+                     "owner": "",
                      "BTC_amount": 0.00,
                      "ETH_amount": 0.0,
                      "PLN_amount": 000,
                      "history_transaction": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
+
 corupted_wallet_data = {"id": 1,
+                        "owner": "",
                         "BTC_amount": "a",
                         "ETH_amount": 0.0,
                         "PLN_amount": -1000,
                         "history_transaction": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
+# empty_wallet_data.keys()  #zwraca liste kluczy w slowniku
+# empty_wallet_data.values() # zwraca liste wartosci w slowniku
+# empty_wallet_data.items() # zwraca liste elementow skladajacych sie z klucza i wartosci (elemty w postaci krotki)
+
 
 class Wallet(BaseModel):
     id: Optional[int] = None
+    owner: str
     BTC_amount: float
     ETH_amount: float
     PLN_amount: float
