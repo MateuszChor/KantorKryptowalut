@@ -31,9 +31,10 @@ def get_current_price(currency: str):
 
 sample_wallet_data = {"id": 1,
                       "owner": "John",
-                      "BTC_amount": 0.003,
-                      "ETH_amount": 0.4,
-                      "PLN_amount": 500,
+                      "BTC_amount": 1.003,
+                      "ETH_amount": 1.4,
+                      "PLN_amount": 200500,
+                      "EUR_amount": 42000,
                       "history_transaction": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
 empty_wallet_data = {"id": 1,
@@ -41,6 +42,7 @@ empty_wallet_data = {"id": 1,
                      "BTC_amount": 0.00,
                      "ETH_amount": 0.0,
                      "PLN_amount": 000,
+                     "EUR_amount": 0.0,
                      "history_transaction": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
 
@@ -49,6 +51,7 @@ corupted_wallet_data = {"id": 1,
                         "BTC_amount": "a",
                         "ETH_amount": 0.0,
                         "PLN_amount": -1000,
+                        "EUR_amount": True,
                         "history_transaction": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
 # empty_wallet_data.keys()  #zwraca liste kluczy w slowniku
@@ -62,6 +65,7 @@ class Wallet(BaseModel):
     BTC_amount: float
     ETH_amount: float
     PLN_amount: float
+    EUR_amount: float
     history_transaction: datetime
 
     @validator("BTC_amount")
@@ -109,6 +113,43 @@ class Wallet(BaseModel):
         else:
             self.PLN_amount -= amount
             self.ETH_amount += amount / course
+
+    def EUR_to_ETH(self, amount):
+        course = get_current_price("ETHEUR")
+
+        if amount > self.EUR_amount:
+            print("you don't have enough EUR")
+        else:
+            self.EUR_amount -= amount
+            self.ETH_amount += amount / course
+
+    def ETH_to_EUR(self, amount):
+        course = get_current_price("ETHEUR")
+
+        if amount > self.ETH_amount:
+            # raise NEGATIVEVALUE(amount, message="you don't have enough euro")
+            print("you don't have enough EUR")
+        else:
+            self.ETH_amount -= amount
+            self.EUR_amount += amount * course
+
+    def BTC_to_EUR(self, amount):
+        course = get_current_price("BTCEUR")
+
+        if amount > self.BTC_amount:
+            print("you don't have enough BTC")
+        else:
+            self.BTC_amount -= amount
+            self.EUR_amount += amount * course
+
+    def EUR_to_BTC(self, amount):
+        course = get_current_price("BTCEUR")
+
+        if amount > self.EUR_amount:
+            print("you don't have enough BTC")
+        else:
+            self.EUR_amount -= amount
+            self.BTC_amount += amount / course
 
 
 # try:
