@@ -3,6 +3,7 @@ from typing import Optional
 
 import requests
 from pydantic import BaseModel, validator, ValidationError
+import pickle
 
 
 class NEGATIVEVALUE(Exception):
@@ -15,6 +16,16 @@ class TYPEVALUEerror(Exception):
     def __init__(self, message: str):
         self.message = message
         super().__init__(message)
+
+
+def validate_amount(value):
+    if value.strip() == '':
+        return "EMPTY_STRING"
+    try:
+        value = float(value)
+        return value
+    except:
+        return "VALUEERROR"
 
 
 def get_current_price(currency: str):
@@ -54,11 +65,6 @@ corupted_wallet_data = {"id": 1,
                         "EUR_amount": True,
                         "history_transaction": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
-# empty_wallet_data.keys()  #zwraca liste kluczy w slowniku
-# empty_wallet_data.values() # zwraca liste wartosci w slowniku
-# empty_wallet_data.items() # zwraca liste elementow skladajacych sie z klucza i wartosci (elemty w postaci krotki)
-
-
 class Wallet(BaseModel):
     id: Optional[int] = None
     owner: str
@@ -67,6 +73,17 @@ class Wallet(BaseModel):
     PLN_amount: float
     EUR_amount: float
     history_transaction: datetime
+
+    def create_wallet(self, owner):
+
+        print("Created wallet")
+        empty_wallet_data["owner"] = owner
+        wallet_instance = Wallet(**empty_wallet_data)
+        self.wallet_instance = wallet_instance
+
+        with open("wallet.pkl", 'wb') as f:
+            pickle.dump(wallet_instance, f)
+
 
     @validator("BTC_amount")
     def btc_valid(cls, value):
@@ -100,7 +117,7 @@ class Wallet(BaseModel):
 
         if amount > self.ETH_amount:
             # raise NEGATIVEVALUE(amount, message="you don't have enough euro")
-            print("you don't have enough Euro")
+            print("you don't have enough ETH")
         else:
             self.ETH_amount -= amount
             self.PLN_amount += amount * course
@@ -123,16 +140,6 @@ class Wallet(BaseModel):
             self.EUR_amount -= amount
             self.ETH_amount += amount / course
 
-    def ETH_to_EUR(self, amount):
-        course = get_current_price("ETHEUR")
-
-        if amount > self.ETH_amount:
-            # raise NEGATIVEVALUE(amount, message="you don't have enough euro")
-            print("you don't have enough EUR")
-        else:
-            self.ETH_amount -= amount
-            self.EUR_amount += amount * course
-
     def BTC_to_EUR(self, amount):
         course = get_current_price("BTCEUR")
 
@@ -146,30 +153,11 @@ class Wallet(BaseModel):
         course = get_current_price("BTCEUR")
 
         if amount > self.EUR_amount:
-            print("you don't have enough BTC")
+            print("you don't have enough EUR")
         else:
             self.EUR_amount -= amount
             self.BTC_amount += amount / course
 
+    def add_PLN(self):
+        self.PLN_amount += 25000
 
-# try:
-#     wallet = Wallet(**sample_wallet_data)
-#     empty_wallet = Wallet(**empty_wallet_data)
-#     corupted_wallet = Wallet(**corupted_wallet_data)
-#
-# except ValidationError as error:
-#     print(error.json())
-#
-# print(f"Found a wallet: {wallet}")
-#
-# wallet.PLN_to_BTC(1000)
-# print(f"Wallet after converting 100 PLN to BTC: {wallet}")
-#
-# wallet.BTC_to_PLN(0.002)
-# print(f"Wallet after converting 1 BTC to PLN: {wallet}")
-#
-# wallet.PLN_to_ETH(100)
-# print(f"Wallet after converting 100 PLN to ETH: {wallet}")
-#
-# wallet.ETH_to_PLN(0.4)
-# print(f"Wallet after converting 0.4 ETH to PLN: {wallet}")
