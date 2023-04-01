@@ -96,7 +96,7 @@ class WalletWindow(ChildWindow):
                                         highlightthickness=0,
                                         activebackground=self.background_color,
                                         activeforeground=self.background_color,
-                                        command=lambda: self.refresh_price(wallet))
+                                        command=self.refresh_price)
         self.refresh_button.place(x=50, y=350)
 
         exit_img = tk.PhotoImage(file=EXIT_BUTTON_IMG)
@@ -134,8 +134,8 @@ class WalletWindow(ChildWindow):
         print(wallet)
         save_wallet('wallet.pkl', wallet)
 
-    def refresh_price(self, wallet):
-
+    def refresh_price(self):
+        wallet = load_wallet('wallet.pkl')
         pln = wallet.PLN_amount
         eur = wallet.EUR_amount
         btc = wallet.BTC_amount

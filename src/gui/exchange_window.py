@@ -177,6 +177,7 @@ class ExangeWindow(ChildWindow):
 
                 if currency_1 == "PLN" and currency_2 == "BTC":
                     Wallet.PLN_to_BTC(wallet_instance, amount)
+                    save_wallet(wallet, wallet_instance)
 
 
                 if currency_1 == "PLN" and currency_2 == "ETH":
