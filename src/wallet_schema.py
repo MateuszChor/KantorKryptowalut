@@ -93,6 +93,30 @@ class Wallet(BaseModel):
             raise TYPEVALUEerror(message="btc amount can't be string")
         return value
 
+    @validator("ETH_amount")
+    def eth_valid(cls, value):
+        if value < 0:
+            raise NEGATIVEVALUE(message="eth amount can't be negative")
+        if type(value) != float:
+            raise TYPEVALUEerror(message="eth amount can't be string")
+        return value
+
+    @validator("PLN_amount")
+    def pln_valid(cls, value):
+        if value < 0:
+            raise NEGATIVEVALUE(message="pln amount can't be negative")
+        if type(value) != float:
+            raise TYPEVALUEerror(message="pln amount can't be string")
+        return value
+
+    @validator("EUR_amount")
+    def eur_valid(cls, value):
+        if value < 0:
+            raise NEGATIVEVALUE(message="eur amount can't be negative")
+        if type(value) != float:
+            raise TYPEVALUEerror(message="eur amount can't be string")
+        return value
+
     def PLN_to_BTC(self, amount):
         course = get_current_price("BTCPLN")
 
@@ -140,6 +164,15 @@ class Wallet(BaseModel):
             self.EUR_amount -= amount
             self.ETH_amount += amount / course
 
+    def ETH_to_EUR(self, amount):
+        course = get_current_price("ETHEUR")
+
+        if amount > self.ETH_amount:
+            print("you don't have enough ETH")
+        else:
+            self.ETH_amount -= amount
+            self.EUR_amount += amount * course
+
     def BTC_to_EUR(self, amount):
         course = get_current_price("BTCEUR")
 
@@ -157,6 +190,24 @@ class Wallet(BaseModel):
         else:
             self.EUR_amount -= amount
             self.BTC_amount += amount / course
+
+    def ETH_to_BTC(self, amount):
+        course = get_current_price("ETHBTC")
+
+        if amount > self.ETH_amount:
+            print("you don't have enough ETH")
+        else:
+            self.ETH_amount -= amount
+            self.BTC_amount += amount * course
+
+    def BTC_to_ETH(self, amount):
+        course = get_current_price("ETHBTC")
+
+        if amount > self.BTC_amount:
+            print("you don't have enough BTC")
+        else:
+            self.BTC_amount -= amount
+            self.ETH_amount += amount / course
 
     def add_PLN(self):
         self.PLN_amount += 25000

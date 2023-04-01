@@ -17,14 +17,14 @@ class Create_wallet_window(ChildWindow):
         self.canvas.create_image(0, 0, image=background_image, anchor="nw")
 
         self.label = tk.Label(self.child_window,
-                              bg=self.background_color,
-                              text="Czyj to portfel?",
+                              bg="#ffffff",
+                              text="Twoje imię to ?",
                               font="none 10 bold",
                               anchor=tk.CENTER)
-        self.label.place(x=200, y=20)
+        self.label.place(x=150, y=20)
 
         self.owner_entry = tkinter.Entry(self.child_window, width=15)
-        self.owner_entry.place(x=200, y=100)
+        self.owner_entry.place(x=150, y=100)
 
         create_img = tk.PhotoImage(file=CREATE_BUTTON_IMG)
 
@@ -36,7 +36,7 @@ class Create_wallet_window(ChildWindow):
                                 activeforeground=self.background_color,
                                 command=self.create_wallet_owner
                                 )
-        self.create_button.place(x=270, y=150,)
+        self.create_button.place(x=150, y=150,)
 
         exit_img = tk.PhotoImage(file=EXIT_BUTTON_IMG)
 

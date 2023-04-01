@@ -35,5 +35,11 @@ BUY_IMG = os.path.join(GUI_IMAGE, "buy.png")
 
 BGBG = os.path.join(GUI_IMAGE, "bgbg.png")
 
+SHOW_WALLET_IMG = os.path.join(GUI_IMAGE, "show_wallet_img.png")
+
+CREATE_WALLET_IMG = os.path.join(GUI_IMAGE, "create_wallet_img.png")
+
+EXCHANGE_MONEY_IMG = os.path.join(GUI_IMAGE, "exchange_money_img.png")
+
 
 print(CREATE_BG)

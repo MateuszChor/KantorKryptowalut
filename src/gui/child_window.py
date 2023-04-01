@@ -9,5 +9,5 @@ class ChildWindow:
         self.child_window = tk.Toplevel(master_window)
         self.child_window.geometry('{}x{}+{}+{}'.format(width, height, 320, 200))
         self.child_window.resizable(False, False)
-        self.child_window.overrideredirect(1)
+        # self.child_window.overrideredirect(1)
 
