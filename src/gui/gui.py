@@ -19,7 +19,7 @@ canvas = tkinter.Canvas(root, width=640, height=427)
 canvas.pack(fill="both", expand=True)
 canvas.create_image(0, 0, image=background_image, anchor="nw")
 
-
+#TODO set wallet to owner entry to create multiple wallets
 wallet = 'wallet.pkl'
 
 #0000FF
