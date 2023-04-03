@@ -4,8 +4,7 @@
 
 aplication start from file gui.py
 
-
-![Zrzut ekranu 2023-04-03 183338](https://user-images.githubusercontent.com/79656363/229572911-5868ccae-7e89-41f9-969a-ab79ebdc9164.png)
+![Zrzut ekranu 2023-04-03 183402](https://user-images.githubusercontent.com/79656363/229578232-27c1d9bd-864a-4fb1-8884-9eda4516dee8.png)
 
 # wallet is creating using pydantic module and stored in pickle 
 
@@ -17,3 +16,4 @@ aplication start from file gui.py
 
 ![Zrzut ekranu 2023-04-03 183448](https://user-images.githubusercontent.com/79656363/229573554-7cb6468e-8536-4f1e-b1d1-d17f288b601e.png)
 
+![Zrzut ekranu 2023-04-03 183402](https://user-images.githubusercontent.com/79656363/229578232-27c1d9bd-864a-4fb1-8884-9eda4516dee8.png)
