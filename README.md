@@ -2,6 +2,8 @@
 
 # Project for school gui make in tkinter
 
+aplication start from file gui.py
+
 
 ![Zrzut ekranu 2023-04-03 183338](https://user-images.githubusercontent.com/79656363/229572911-5868ccae-7e89-41f9-969a-ab79ebdc9164.png)
 
