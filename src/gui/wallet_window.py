@@ -13,6 +13,7 @@ class WalletWindow(ChildWindow):
         self.canvas.pack(fill="both", expand=True)
         self.canvas.create_image(0, 0, image=background_image, anchor="nw")
 
+        
         wallet = load_wallet('wallet.pkl')
 
         print(wallet)

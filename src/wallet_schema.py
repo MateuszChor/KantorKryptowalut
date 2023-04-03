@@ -89,7 +89,7 @@ class Wallet(BaseModel):
     def btc_valid(cls, value):
         if value < 0:
             raise NEGATIVEVALUE(message="btc amount can't be negative")
-        if type(value) != float:
+        if not isinstance(value, float):
             raise TYPEVALUEerror(message="btc amount can't be string")
         return value
 
@@ -97,7 +97,7 @@ class Wallet(BaseModel):
     def eth_valid(cls, value):
         if value < 0:
             raise NEGATIVEVALUE(message="eth amount can't be negative")
-        if type(value) != float:
+        if not isinstance(value, float):
             raise TYPEVALUEerror(message="eth amount can't be string")
         return value
 
@@ -105,7 +105,7 @@ class Wallet(BaseModel):
     def pln_valid(cls, value):
         if value < 0:
             raise NEGATIVEVALUE(message="pln amount can't be negative")
-        if type(value) != float:
+        if not isinstance(value, float):
             raise TYPEVALUEerror(message="pln amount can't be string")
         return value
 
@@ -113,7 +113,7 @@ class Wallet(BaseModel):
     def eur_valid(cls, value):
         if value < 0:
             raise NEGATIVEVALUE(message="eur amount can't be negative")
-        if type(value) != float:
+        if not isinstance(value, float):
             raise TYPEVALUEerror(message="eur amount can't be string")
         return value
 
